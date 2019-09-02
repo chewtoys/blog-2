@@ -1,0 +1,36 @@
+@main-color: #825cff;
+@gray-color: #f5f5f5;
+@gray-text: #666;
+
+.rel() {
+  position: relative;
+}
+
+.abs() {
+  position: absolute;
+}
+
+.fix() {
+  position: fixed;
+}
+
+.t-a(@align) {
+  text-align: @align;
+}
+
+.f-s(@val) {
+  font-size: @val;
+}
+
+.clearfix() {
+
+  &:before,
+  &:after {
+    content: " ";
+    display: table;
+  }
+
+  &:after {
+    clear: both;
+  }
+}
