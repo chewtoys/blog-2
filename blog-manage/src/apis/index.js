@@ -1,5 +1,6 @@
 import axios from 'axios'
-const host = 'http://localhost:3001'
+// const host = 'http://localhost:3001'
+var host = 'http://47.98.146.104:4001'
 
 const ajax = (url, params, method) => {
   return axios({
