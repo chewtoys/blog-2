@@ -5,9 +5,9 @@
   "author": "Ken fu",
   "private": true,
   "scripts": {
-    "dev": "nuxt --127.0.0.1 myhost --port 4000",
+    "dev": "nuxt --port 4000",
     "build": "nuxt build",
-    "start": "nuxt start",
+    "start": "nuxt start --port 4000",
     "generate": "nuxt generate",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
     "precommit": "npm run lint",
