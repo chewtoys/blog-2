@@ -5,7 +5,7 @@
   "author": "Ken fu",
   "private": true,
   "scripts": {
-    "dev": "nuxt",
+    "dev": "nuxt --127.0.0.1 myhost --port 4000",
     "build": "nuxt build",
     "start": "nuxt start",
     "generate": "nuxt generate",

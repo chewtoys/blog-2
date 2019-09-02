@@ -3,7 +3,7 @@
 // } from "./../config";
 import axios from 'axios'
 // import fetch from 'isomorphic-unfetch'
-var host = 'http://localhost:3001'
+var host = 'http://localhost:4001'
 // var host = 'http://10.205.139.114:3001'
 // var host = 'https://nodeuat.sgsonline.com.cn'
 // var host = 'https://nodedev.sgsonline.com.cn'
