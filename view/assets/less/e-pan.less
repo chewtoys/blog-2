@@ -1,0 +1,415 @@
+@import 'mixin.less';
+
+.home {
+  padding: 50px 0;
+  display: flex;
+  justify-content: space-around;
+
+  .main {
+    flex: 5;
+    margin-right: 60px;
+
+    section {
+      margin-bottom: 50px;
+      background: @gray-color;
+      padding: 20px 30px;
+      border: 1px solid @gray-color;
+
+      &:hover {
+        background: #fff;
+        cursor: pointer;
+      }
+    }
+
+    section:last-child {
+      margin-bottom: 0;
+    }
+
+    p {
+      text-indent: 2em;
+    }
+
+    img {
+      height: 200px;
+      margin: 20px 0;
+    }
+
+    .tit {
+      display: flex;
+      justify-content: space-around;
+      border-bottom: 1px dotted #ddd;
+      height: 38px;
+      line-height: 38px;
+
+      a {
+        display: flex;
+        justify-content: flex-start;
+        flex: 3;
+        display: block;
+        height: 28px;
+        line-height: 28px;
+        width: 100%;
+        overflow: hidden;
+      }
+
+      em {
+        height: 28px;
+        line-height: 28px;
+        display: block;
+        flex: 2;
+        display: flex;
+        justify-content: flex-end;
+
+        * {
+          .f-s(12px);
+		  color: @gray-text;
+		  margin-left: 10px;
+        }
+      }
+    }
+
+    .con {
+      line-height: 30px;
+      max-height: 180px;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    .page {
+      padding: 0;
+      background: #fff;
+      border: 0;
+
+      ul {
+        display: flex;
+        justify-content: flex-end;
+        // border-right: 1px solid #ddd;
+      }
+
+      li {
+        // background: #fff;
+        // flex: 1;
+        // text-align: center;
+        // padding: 10px 0;
+        // border: 1px solid #ddd;
+        // border-right: 0;
+        // flex: 1;
+        margin-left: 15px;
+
+        &:hover {
+          color: @main-color;
+        }
+      }
+    }
+  }
+
+  aside {
+    flex: 2;
+
+    h3 {
+      border-bottom: 1px solid #ddd;
+      margin-bottom: 10px;
+      padding-bottom: 10px;
+      font-weight: normal;
+    }
+
+    .tag a {
+      border: 1px solid #ddd;
+      padding: 5px 15px;
+      display: inline-block;
+      margin: 0 5px 10px 0;
+      border-radius: 3px;
+    }
+
+    .message li {
+      margin-top: 5px;
+      line-height: 25px;
+      width: 100%;
+
+      span {
+        color: #666;
+      }
+    }
+  }
+}
+
+.article {
+  background: #f5f5f5;
+  padding: 10px 30px;
+  margin: 20px auto;
+
+  h2 {
+    height: 50px;
+    line-height: 50px;
+    border-bottom: 1px solid #ddd;
+  }
+
+  li {
+    height: 50px;
+    line-height: 50px;
+    border-bottom: 1px dotted #ddd;
+    cursor: pointer;
+    padding: 0 20px;
+
+    &:hover {
+      background: #fff;
+    }
+
+    .time {
+      color: #666;
+      padding-left: 30px;
+      font-size: 12px;
+      float: right;
+    }
+  }
+}
+
+.article-detail {
+  h2 {
+    text-align: center;
+    padding: 50px 0;
+    .f-s(16px);
+  }
+
+  .img {
+    text-align: center;
+    margin: 20px 0;
+
+    img {
+      max-width: 1200px;
+    }
+  }
+
+  .tag {
+    text-align: right;
+
+    span {
+      padding-left: 20px;
+      color: @gray-text;
+    }
+  }
+
+  p {
+    text-indent: 2em;
+    padding-top: 10px;
+    line-height: 25px;
+  }
+}
+
+.about {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  .img-head {
+    width: 200px;
+    height: 200px;
+    border-radius: 200px;
+    border: 10px solid @gray-color;
+    margin-top: 100px;
+  }
+
+  section {
+    padding: 10px 30px 30px 30px;
+    margin: 20px auto;
+
+    * {
+      padding: 10px 0;
+    }
+
+    h2 {
+      font-weight: normal;
+      text-align: center;
+    }
+
+    div {
+      text-align: center;
+    }
+
+    span {
+      display: inline-block;
+      padding: 0 10px;
+    }
+  }
+
+  .ERcode {
+    display: flex;
+    width: 800px;
+    justify-content: space-between;
+
+    div {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    img {
+      height: 300px;
+    }
+  }
+}
+
+.u-home {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40px;
+}
+
+.u-article {
+  section {
+    margin-top: 20px;
+    background: #f5f5f5;
+    padding: 10px 30px;
+  }
+
+  .tit {
+    height: 30px;
+    line-height: 30px;
+    margin-bottom: 20px;
+  }
+
+  input[type='text'] {
+    border: 0;
+    border-bottom: 1px solid #ccc;
+    width: 100%;
+    height: 30px;
+    line-height: 30px;
+  }
+
+  input[type='file'] {
+    width: 100%;
+  }
+
+  ul {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+
+  li {
+    padding: 10px 20px;
+    flex-wrap: wrap;
+    border: 1px solid #ccc;
+
+    &.active {
+      background: #ccc;
+      color: #000;
+    }
+  }
+
+  .submit {
+    background: #fff;
+    text-align: center;
+  }
+
+  button {
+    width: 200px;
+    text-align: center;
+    background: #fff;
+    margin-bottom: 50px;
+    height: 50px;
+    line-height: 50px;
+    background: #fff;
+  }
+}
+
+.login {
+  min-height: 100%;
+  background: #dce1e4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .box {
+    background: #ebf0f3;
+    border: 1px solid #b8bcbd;
+    padding: 30px;
+    width: 300px;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    span {
+      text-align: left;
+      width: 100%;
+      color: #494d50;
+      font-size: 12px;
+    }
+
+    input {
+      width: 98%;
+      background: #f1f5f6;
+      border: 1px solid #b8bcbd;
+      height: 30px;
+      line-height: 30px;
+      border-radius: 3px;
+      margin: 5px 0 10px 0;
+      padding-left: 2%;
+    }
+
+    button {
+      background: #f1f5f6;
+      border: 1px solid #b8bcbd;
+      height: 30px;
+      line-height: 30px;
+      border-radius: 3px;
+      width: 100px;
+      margin-top: 10px;
+    }
+
+    button[disabled] {
+      cursor: not-allowed;
+    }
+  }
+}
+
+.tag-item {
+  background: #f5f5f5;
+  padding: 10px 30px;
+  margin-top: 20px;
+  width: 1140px;
+
+  .tit {
+    display: inline-block;
+    border-bottom: 1px solid #ccc;
+    height: 50px;
+    line-height: 50px;
+    width: 100%;
+
+    span {
+      float: left;
+    }
+
+    em {
+      float: right;
+      cursor: pointer;
+    }
+  }
+
+  .tag-list {
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 20px;
+    flex-wrap: wrap;
+
+    li {
+      background: #fff;
+      position: relative;
+      padding: 10px 30px;
+
+      i {
+        position: absolute;
+        top: -5px;
+        right: -2px;
+        font-size: 14px;
+        color: #f00;
+        font-style: normal;
+        cursor: pointer;
+      }
+    }
+  }
+}
