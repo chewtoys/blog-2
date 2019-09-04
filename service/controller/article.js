@@ -74,6 +74,7 @@ class Article {
   }
 
   queryAdd(param) {
+    debugger
     const {
       title,
       type,

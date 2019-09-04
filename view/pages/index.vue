@@ -52,11 +52,11 @@
             <em>
               <time class="time">发布时间：{{ item.create_time.substr(0,10) }}</time>
               <span>浏览：{{ item.preview_num > 99 ? '99+' : item.preview_num }}次</span>
-              <span>评论：{{ 2 }}条</span>
+              <!-- <span>评论：{{ item.preview_num }}条</span> -->
             </em>
           </div>
           <img :src="item.thumbnail" v-if="item.thumbnail">
-          <p class="con" v-html="item.abstract || item.content"></p>
+          <div class="con" v-html="item.abstract || item.content"></div>
         </section>
         <section class="page">
           <ul>
