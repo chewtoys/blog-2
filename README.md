@@ -15,16 +15,25 @@
 
 ## 愉快的奔跑
   $ 运行服务端
+  
   $ cd service 
+  
   $ npm install
+  
   $ npm run dev
   
   $ 运行用户端
+  
   $ cd view
+  
   $ npm install
+  
   $ npm run dev
 
   $ 运行管理端
+  
   $ cd manage
+  
   $ npm install
+  
   $ npm run serve
