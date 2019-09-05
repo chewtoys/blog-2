@@ -17,6 +17,10 @@ export default {
         router: '/'
       },
       {
+        name: '友链',
+        router: '/firend/list'
+      },
+      {
         name: '标签页',
         router: '/tag/list'
       },

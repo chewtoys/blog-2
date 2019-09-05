@@ -35,6 +35,18 @@ const routes = [{
         meta,
         component: () => import('./../views/article/Detail')
       },
+      {
+        path: '/firend/list',
+        name: 'firendList',
+        meta,
+        component: () => import('./../views/firend/List')
+      },
+      {
+        path: '/firend/detail/:id',
+        name: 'firendDetail',
+        meta,
+        component: () => import('./../views/firend/Detail')
+      },
     ]
   },
   {

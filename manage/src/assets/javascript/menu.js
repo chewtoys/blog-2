@@ -1,5 +1,19 @@
 export const menu = [
   {
+    id: 3,
+    parentId: 0,
+    pageUrl: '',
+    sortId: 3,
+    name: '友链'
+  }, 
+  {
+    id: 3-1,
+    parentId: 3,
+    pageUrl: '/firend/list',
+    sortId: 3,
+    name: '友链列表'
+  },
+  {
     id: 4,
     parentId: 0,
     pageUrl: '',

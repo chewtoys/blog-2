@@ -4,7 +4,7 @@
       <el-col :span="24">
         <el-breadcrumb separator="/">
           <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-          <el-breadcrumb-item>文章详情</el-breadcrumb-item>
+          <el-breadcrumb-item>友链详情</el-breadcrumb-item>
         </el-breadcrumb>
       </el-col>
     </el-row>
