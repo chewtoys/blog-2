@@ -5,8 +5,6 @@ const cors = require("koa-cors"); // 解决跨域
 const session = require("koa-session")
 
 const loginRouter = require('./router/login')
-const registerRouter = require('./router/register')
-const bannerRouter = require('./router/banner')
 const upload = require('./router/upload')
 const message = require('./router/message')
 const tag = require('./router/tag')
@@ -68,8 +66,6 @@ app.use(cors())
 
 
 app.use(loginRouter.routes())
-app.use(registerRouter.routes())
-app.use(bannerRouter.routes())
 app.use(upload.routes())
 app.use(message.routes())
 app.use(tag.routes())

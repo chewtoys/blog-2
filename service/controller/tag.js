@@ -1,14 +1,17 @@
 const pool = require('./pool')
+const logs = require('./../log')
 
-class Banner {
+class Tag {
   constructor() {}
 
   query(param) {
     return new Promise((resolve, reject) => {
       pool.query('SELECT * FROM tag LIMIT 10', (e, res, fields) => {
         if (e) {
+          logs.createLogs(e, 'fail')
           throw e
         } else {
+          logs.createLogs(res, 'success')
           resolve(res)
         }
       })
@@ -19,9 +22,10 @@ class Banner {
     return new Promise((resolve, reject) => {
       pool.query('SELECT COUNT(*) FROM tag', (e, res, fields) => {
         if (e) {
+          logs.createLogs(e, 'fail')
           throw e
         } else {
-          console.log('res', res[0])
+          logs.createLogs(res, 'success')
           resolve(res[0])
         }
       })
@@ -29,13 +33,17 @@ class Banner {
   }
 
   addtag(param) {
-    const { name, alias } = param
+    const {
+      name,
+      alias
+    } = param
     return new Promise((resolve, reject) => {
       pool.query(`insert into tag (name, alias, create_time) values ("${name}", "${alias}", now())`, (e, res, fields) => {
         if (e) {
+          logs.createLogs(e, 'fail')
           throw e
         } else {
-          console.log('res', res)
+          logs.createLogs(res, 'success')
           resolve(res)
         }
       })
@@ -43,14 +51,18 @@ class Banner {
   }
 
   modifyTag(param) {
-    const { name, alias, id } = param
+    const {
+      name,
+      alias,
+      id
+    } = param
     return new Promise((resolve, reject) => {
-      // update `tag` set name='xiugai', alias='xiu' where id=2
       pool.query(`update tag set name="${name}", alias="${alias}" where id=${id}`, (e, res, fields) => {
         if (e) {
+          logs.createLogs(e, 'fail')
           throw e
         } else {
-          console.log('res', res)
+          logs.createLogs(res, 'success')
           resolve(res)
         }
       })
@@ -58,14 +70,16 @@ class Banner {
   }
 
   delTag(param) {
-    const { id } = param
+    const {
+      id
+    } = param
     return new Promise((resolve, reject) => {
-      // delete from `tag` where id=2
       pool.query(`delete from tag where id=${id}`, (e, res, fields) => {
         if (e) {
+          logs.createLogs(e, 'fail')
           throw e
         } else {
-          console.log('res', res)
+          logs.createLogs(res, 'success')
           resolve(res)
         }
       })
@@ -73,4 +87,4 @@ class Banner {
   }
 }
 
-module.exports = new Banner()
+module.exports = new Tag()
