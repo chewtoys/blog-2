@@ -1,4 +1,4 @@
-# nuxt.js + koa2 + mysql + vue-cli3 + element-ui 搭建的个人博客
+# nuxt.js + koa2 + mysql + vue-cli3 + element-ui 搭建的个人博客管理系统
 * 线上地址： [付仲阔的博客](http://www.fuzhongkuo.com)
 * 提供用户展示的view文件内，使用的vue的同构框架nuxt.js，为了更好的seo。
 * 管理端使用的vue-cli3和element-ui快速构建的管理界面。
