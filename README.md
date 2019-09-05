@@ -20,7 +20,7 @@
   
   $ npm install
   
-  $ npm run dev
+$ npm run dev
   
   // 运行用户端
   
