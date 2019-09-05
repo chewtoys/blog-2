@@ -14,15 +14,15 @@
 * 未完待续...
 
 ## 愉快的奔跑
-  $ 运行服务端
+  // 运行服务端
   
   $ cd service 
   
   $ npm install
   
- $ npm run dev
+  $ npm run dev
   
-  $ 运行用户端
+  // 运行用户端
   
   $ cd view
   
@@ -30,7 +30,7 @@
   
   $ npm run dev
 
-  $ 运行管理端
+  // 运行管理端
   
   $ cd manage
   
