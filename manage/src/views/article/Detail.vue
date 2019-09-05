@@ -44,9 +44,7 @@
           </el-form-item>
           <el-form-item label="标签">
             <el-checkbox-group v-model="form.tag_id">
-              <el-checkbox label="复选框 A" vlaue='1'></el-checkbox>
-              <el-checkbox label="复选框 B" vlaue='2'></el-checkbox>
-              <el-checkbox label="复选框 B" vlaue='3'></el-checkbox>
+              <el-checkbox :label="item.name" :vlaue='item.id' v-for='(item, index) in tags'></el-checkbox>
             </el-checkbox-group>
           </el-form-item>
           <el-form-item label="是否顶置">
@@ -64,8 +62,8 @@
             ></quill-editor>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click="onSubmit">立即创建</el-button>
-            <el-button>取消</el-button>
+            <el-button type="primary" @click="onSubmit">提交</el-button>
+            <el-button @click="handleCancel">取消</el-button>
           </el-form-item>
         </el-form>
       </el-col>
@@ -82,11 +80,24 @@ const host = process.env.NODE_ENV !== 'development' ? 'http://47.98.146.104:4001
 
 export default {
   methods: {
+    handleCancel() {
+      this.$router.push('/article/list')
+    },
     onEditorChange: function(event) {
       this.form.content = event.html;
     },
     onSubmit() {
-      console.log(this.form)
+      console.log(this.form);
+      // 格式话出对应的ID
+      let tagId = []
+      this.form.tag_id.forEach(tagChecked => {
+        this.tags.forEach(tags => {
+          if (tags.name === tagChecked) {
+            tagId.push(tags.id)
+          }
+        })
+      })
+      this.form.tag_id = tagId.join(',')
       if(this.$route.params.id !== 'add') {
         ajax("/article/modify", this.form).then(res => {
           if (res.code === 200) {
@@ -122,23 +133,41 @@ export default {
         });
     },
     submitForm() {
-      // console.log(this.dialogFrom);
-      if (this.dialogFrom.id) {
-        this.modifyTag(this.dialogFrom);
-      } else {
-        this.addTag(this.dialogFrom);
-      }
+      console.log(this.form);
+      this.form.tag_id.forEach(tagChecked => {
+        console.log(tagChecked)
+      })
+      // if (this.dialogFrom.id) {
+      //   this.modifyTag(this.dialogFrom);
+      // } else {
+      //   this.addTag(this.dialogFrom);
+      // }
     },
     getArticleDetail(id) {
       ajax("/article/detail", {id}).then(res => {
         if (res.code === 200) {
           // this.tableData = res.data.items;
           // this.total = res.data.total;
-          
           this.form = res.data
           this.form.is_top = res.data.is_top == 1 ? true : false
-          this.form.tag_id = res.data.tag_id.split(',')
+          // this.form.tag_id = res.data.tag_id.split(',')
+          res.data.tag_id.split(',').forEach(tagId => {
+            this.tags.forEach(tags => {
+              if (tags.id == tagId) {
+                this.form.tag_id.push(tags.name)
+              }
+            })
+          })
+          console.log(this.form.tag_id)
           console.log(this.form)
+        }
+      });
+    },
+    getTagList() {
+      ajax("/tag/list", {}).then(res => {
+        if (res.code === 200) {
+          console.log(res)
+          this.tags = res.data.items;
         }
       });
     },
@@ -206,15 +235,14 @@ export default {
   data() {
     return {
       host: host,
-      checkList: ["选中且禁用", "复选框 A"],
       content: "",
       articleTitle: "",
       articleContent: "",
       editorOption: {},
       form: {
-        thumbnail: 'http://xcyzwang.oss-cn-hangzhou.aliyuncs.com/1567228775184.jpg',
+        thumbnail: '',
         is_top: true,
-        tag_id: ["选中且禁用", "复选框 A"]
+        tag_id: []
       },
       tableData: [],
       total: 0,
@@ -222,7 +250,8 @@ export default {
       dialogFrom: {
         name: "",
         alias: ""
-      }
+      },
+      tags: []
     };
   },
   mounted() {
@@ -231,6 +260,7 @@ export default {
     if(this.$route.params.id !== 'add') {
       this.getArticleDetail(this.$route.params.id)
     }
+    this.getTagList()
   }
 };
 </script>

@@ -15,7 +15,7 @@
       <el-table-column prop="title" label="标题"></el-table-column>
       <el-table-column prop="type" label="文章类型"></el-table-column>
       <el-table-column prop="author" label="作者"></el-table-column>
-      <el-table-column prop="content" label="内容"></el-table-column>
+      <el-table-column prop="content" label="内容" :show-overflow-tooltip="true"></el-table-column>
       <el-table-column prop="is_top" label="是否顶置"></el-table-column>
       <el-table-column prop="update_time" label="更新时间"></el-table-column>
       <el-table-column prop="create_time" label="创建时间"></el-table-column>

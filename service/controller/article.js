@@ -20,7 +20,7 @@ class Article {
           if (res.length) {
             res.forEach(item => {
               item.create_time = moment(item.create_time).format("YYYY-MM-DD HH:mm:ss");
-              console.log('item create item', item.create_time)
+              item.update_time = moment(item.update_time).format("YYYY-MM-DD HH:mm:ss");
             })
           }
           logs.createLogs(res, 'success')
