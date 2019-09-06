@@ -16,8 +16,7 @@ const routes = [{
     path: '/frame',
     name: 'frame',
     component: () => import('./../views/Frame'),
-    children: [
-      {
+    children: [{
         path: '/tag/list',
         name: 'tagList',
         meta,
@@ -40,13 +39,13 @@ const routes = [{
         name: 'firendList',
         meta,
         component: () => import('./../views/firend/List')
-      },
+      }, 
       {
-        path: '/firend/detail/:id',
-        name: 'firendDetail',
+        path: '/message/list',
+        name: 'messageList',
         meta,
-        component: () => import('./../views/firend/Detail')
-      },
+        component: () => import('./../views/message/List')
+      }
     ]
   },
   {
@@ -54,7 +53,7 @@ const routes = [{
     path: '/beforeEnter',
     name: 'beforeEnter',
     beforeEnter: (to, from, next) => {
-      console.log('路由独享的守卫')
+      console.log(to, from, next, '路由独享的守卫')
     }
   },
   {

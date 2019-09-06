@@ -12,11 +12,34 @@
         <span v-if="articleDetail.tag_id">标签：{{ articleDetail.tag_id }}</span>
       </div>
       <div class="img">
-        <img :src="articleDetail.thumbnail">
+        <img :src="articleDetail.thumbnail" />
       </div>
-      
       <div v-html="articleDetail.content" class="content"></div>
     </article>
+    <section class="wrap message">
+      <h2>留言咨询</h2>
+      <ul>
+        <li>
+          <span>
+            <i>*</i>昵称：
+          </span>
+          <em>
+            <input type="text" placeholder="请输入您的昵称" />
+          </em>
+        </li>
+        <li>
+          <span>
+            <i>*</i>内容：
+          </span>
+          <em>
+            <textarea placeholder="请输入您的内容"></textarea>
+          </em>
+        </li>
+        <li>
+          <button>提交</button>
+        </li>
+      </ul>
+    </section>
     <Footer></Footer>
   </section>
 </template>

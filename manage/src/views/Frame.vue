@@ -2,17 +2,17 @@
   <div>
     <el-container style="height: 100vh;">
       <el-aside :class="isCollapse ? 'shrinkAside' : 'openAside'" width="200px">
-        <h2>后台管理系统</h2>
-        <Menu :isCollapse="isCollapse"/>
+        <h2>博客后台管理</h2>
+        <Menu :isCollapse="isCollapse" />
         <div class="menu__collapse" @click="changeCollapse">
           <i :class="isCollapse ? 'el-icon-arrow-right' : 'el-icon-arrow-left'"></i>
         </div>
       </el-aside>
       <el-container>
-        <el-header>Header</el-header>
+        <!-- <el-header>Header</el-header> -->
         <el-main>
-          <router-view/>
-          <router-view name="test"/>
+          <router-view />
+          <!-- <router-view name="test" /> -->
         </el-main>
       </el-container>
     </el-container>
@@ -53,7 +53,7 @@ export default {
 }
 h2 {
   text-align: center;
-  padding: 20px 0; 
+  padding: 20px 0;
 }
 .openAside {
   width: 200px !important;
@@ -73,9 +73,4 @@ h2 {
     display: none;
   }
 }
-</style>
-
-<style>
-
-
 </style>

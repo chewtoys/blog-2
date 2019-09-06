@@ -2,12 +2,12 @@ const pool = require('./pool')
 const moment = require('moment')
 const logs = require('./../log')
 
-class Tag {
+class Friend {
   constructor() {}
 
-  query(param) {
+  queryList(param) {
     return new Promise((resolve, reject) => {
-      pool.query('SELECT * FROM tag LIMIT 10', (e, res, fields) => {
+      pool.query(`SELECT * FROM friend LIMIT 10`, (e, res, fields) => {
         if (e) {
           logs.createLogs(e, 'fail')
           throw e
@@ -27,7 +27,7 @@ class Tag {
 
   queryTotal(param) {
     return new Promise((resolve, reject) => {
-      pool.query('SELECT COUNT(*) FROM tag', (e, res, fields) => {
+      pool.query('SELECT COUNT(*) FROM friend', (e, res, fields) => {
         if (e) {
           logs.createLogs(e, 'fail')
           throw e
@@ -39,13 +39,16 @@ class Tag {
     })
   }
 
-  addtag(param) {
+  addFriend(param) {
     const {
       name,
-      alias
+      link,
+      phone,
+      thumbnail,
+      remark
     } = param
     return new Promise((resolve, reject) => {
-      pool.query(`insert into tag (name, alias, create_time) values ("${name}", "${alias}", now())`, (e, res, fields) => {
+      pool.query(`insert into friend (name, link, create_time, phone, thumbnail, remark) values ("${name}", "${link}", now(), "${phone}", "${thumbnail}", "${remark}")`, (e, res, fields) => {
         if (e) {
           logs.createLogs(e, 'fail')
           throw e
@@ -57,14 +60,17 @@ class Tag {
     })
   }
 
-  modifyTag(param) {
+  modifyFriend(param) {
     const {
+      id,
       name,
-      alias,
-      id
+      link,
+      phone,
+      thumbnail,
+      remark
     } = param
     return new Promise((resolve, reject) => {
-      pool.query(`update tag set name="${name}", alias="${alias}" where id=${id}`, (e, res, fields) => {
+      pool.query(`update friend set name="${name}", link="${link}", phone="${phone}", thumbnail="${thumbnail}", remark="${remark}", update_time=now() where id=${id}`, (e, res, fields) => {
         if (e) {
           logs.createLogs(e, 'fail')
           throw e
@@ -76,12 +82,12 @@ class Tag {
     })
   }
 
-  delTag(param) {
+  delFriend(param) {
     const {
       id
     } = param
     return new Promise((resolve, reject) => {
-      pool.query(`delete from tag where id=${id}`, (e, res, fields) => {
+      pool.query(`delete from friend where id=${id}`, (e, res, fields) => {
         if (e) {
           logs.createLogs(e, 'fail')
           throw e
@@ -94,4 +100,4 @@ class Tag {
   }
 }
 
-module.exports = new Tag()
+module.exports = new Friend()

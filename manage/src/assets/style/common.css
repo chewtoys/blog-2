@@ -18,3 +18,10 @@
   background-color: #e9eef3;
   width: 100%;
 }
+.table {
+  padding-top: 10px;
+}
+.page {
+  margin-top: 10px;
+  text-align: right;
+}

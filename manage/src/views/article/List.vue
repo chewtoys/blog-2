@@ -11,31 +11,35 @@
         <el-button @click="handleAdd">添加</el-button>
       </el-col>
     </el-row>
-    <el-table :data="tableData" style="width: 100%">
-      <el-table-column prop="title" label="标题"></el-table-column>
-      <el-table-column prop="type" label="文章类型"></el-table-column>
-      <el-table-column prop="author" label="作者"></el-table-column>
-      <el-table-column prop="content" label="内容" :show-overflow-tooltip="true"></el-table-column>
-      <el-table-column prop="is_top" label="是否顶置">
-        <template slot-scope="scope">
-          <el-switch
-            v-model="scope.row.is_top ? true : false"
-            @change='handleChange(scope.row, scope.$index)'
-            active-color="#dddddd"
-            inactive-color="#13ce66">
-          </el-switch>
-        </template>
-      </el-table-column>
-      <el-table-column prop="update_time" label="更新时间"></el-table-column>
-      <el-table-column prop="create_time" label="创建时间"></el-table-column>
-      <el-table-column fixed="right" label="操作" width='100'>
-        <template slot-scope="scope">
-          <el-button @click="handleModify(scope.row.id)" type="text" size="small">编辑</el-button>
-          <el-button @click="handleDel(scope.row.id)" type="text" size="small">删除</el-button>
-        </template>
-      </el-table-column>
-    </el-table>
-    <el-pagination layout="prev, pager, next" :total="total"></el-pagination>
+    <div class='table'>
+      <el-table :data="tableData" style="width: 100%">
+        <el-table-column prop="title" label="标题"></el-table-column>
+        <el-table-column prop="type" label="文章类型"></el-table-column>
+        <el-table-column prop="author" label="作者"></el-table-column>
+        <el-table-column prop="content" label="内容" :show-overflow-tooltip="true"></el-table-column>
+        <el-table-column prop="is_top" label="是否顶置">
+          <template slot-scope="scope">
+            <el-switch
+              v-model="scope.row.is_top ? true : false"
+              @change='handleChange(scope.row, scope.$index)'
+              active-color="#dddddd"
+              inactive-color="#13ce66">
+            </el-switch>
+          </template>
+        </el-table-column>
+        <el-table-column prop="update_time" label="更新时间"></el-table-column>
+        <el-table-column prop="create_time" label="创建时间"></el-table-column>
+        <el-table-column fixed="right" label="操作" width='100'>
+          <template slot-scope="scope">
+            <el-button @click="handleModify(scope.row.id)" type="text" size="small">编辑</el-button>
+            <el-button @click="handleDel(scope.row.id)" type="text" size="small">删除</el-button>
+          </template>
+        </el-table-column>
+      </el-table>
+    </div>
+    <div class="page">
+      <el-pagination layout="prev, pager, next" :total="total" background></el-pagination>
+    </div>
     <el-dialog title="标签维护" :visible.sync="dialogBox">
       <el-form label-width="80px" :model="dialogFrom">
         <el-form-item label="名称">

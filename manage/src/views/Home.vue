@@ -17,6 +17,14 @@ export default {
         router: '/'
       },
       {
+        name: '留言',
+        router: '/message/list'
+      },
+      {
+        name: '友链',
+        router: '/firend/list'
+      },
+      {
         name: '友链',
         router: '/firend/list'
       },

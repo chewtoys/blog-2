@@ -5,37 +5,37 @@ const cors = require("koa-cors"); // 解决跨域
 const session = require("koa-session")
 
 const loginRouter = require('./router/login')
-const upload = require('./router/upload')
-const message = require('./router/message')
-const tag = require('./router/tag')
-const article = require('./router/article')
+const uploadRouter = require('./router/upload')
+const messageRouter = require('./router/message')
+const tagRouter = require('./router/tag')
+const articleRouter = require('./router/article')
+const friendRoutrer = require('./router/friend')
+
+// app.keys = ['some secret hurr'];
+
+// const CONFIG = {
+//   key: 'koa:sess',
+//   /** (string) cookie key (default is koa:sess) */
+//   /** (number || 'session') maxAge in ms (default is 1 days) */
+//   /** 'session' will result in a cookie that expires when session/browser is closed */
+//   /** Warning: If a session cookie is stolen, this cookie will never expire */
+//   maxAge: 86400000,
+//   autoCommit: true,
+//   /** (boolean) automatically commit headers (default true) */
+//   overwrite: true,
+//   /** (boolean) can overwrite or not (default true) */
+//   httpOnly: true,
+//   /** (boolean) httpOnly or not (default true) */
+//   signed: true,
+//   /** (boolean) signed or not (default true) */
+//   rolling: false,
+//   /** (boolean) Force a session identifier cookie to be set on every response. The expiration is reset to the original maxAge, resetting the expiration countdown. (default is false) */
+//   renew: false,
+//   /** (boolean) renew session when session is nearly expired, so we can always keep user logged in. (default is false)*/
+// };
 
 
-app.keys = ['some secret hurr'];
-
-const CONFIG = {
-  key: 'koa:sess',
-  /** (string) cookie key (default is koa:sess) */
-  /** (number || 'session') maxAge in ms (default is 1 days) */
-  /** 'session' will result in a cookie that expires when session/browser is closed */
-  /** Warning: If a session cookie is stolen, this cookie will never expire */
-  maxAge: 86400000,
-  autoCommit: true,
-  /** (boolean) automatically commit headers (default true) */
-  overwrite: true,
-  /** (boolean) can overwrite or not (default true) */
-  httpOnly: true,
-  /** (boolean) httpOnly or not (default true) */
-  signed: true,
-  /** (boolean) signed or not (default true) */
-  rolling: false,
-  /** (boolean) Force a session identifier cookie to be set on every response. The expiration is reset to the original maxAge, resetting the expiration countdown. (default is false) */
-  renew: false,
-  /** (boolean) renew session when session is nearly expired, so we can always keep user logged in. (default is false)*/
-};
-
-
-app.use(session(CONFIG, app));
+// app.use(session(CONFIG, app));
 app.use(bodyParser())
 app.use(cors())
 
@@ -64,22 +64,22 @@ app.use(cors())
 // })
 
 
-
 app.use(loginRouter.routes())
-app.use(upload.routes())
-app.use(message.routes())
-app.use(tag.routes())
-app.use(article.routes())
+app.use(uploadRouter.routes())
+app.use(messageRouter.routes())
+app.use(tagRouter.routes())
+app.use(articleRouter.routes())
+app.use(friendRoutrer.routes())
 
-app.use(ctx => {
-  console.log(ctx.session, 'ctx.session')
-  // ignore favicon
-  if (ctx.path === '/favicon.ico') return;
+// app.use(ctx => {
+//   console.log(ctx.session, 'ctx.session')
+//   // ignore favicon
+//   if (ctx.path === '/favicon.ico') return;
 
-  let n = ctx.session.views || 0;
-  ctx.session.views = ++n;
-  ctx.body = n + ' views';
-});
+//   let n = ctx.session.views || 0;
+//   ctx.session.views = ++n;
+//   ctx.body = n + ' views';
+// });
 
 
 app.listen(4001);

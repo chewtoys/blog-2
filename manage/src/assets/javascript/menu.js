@@ -1,5 +1,18 @@
 export const menu = [
   {
+    id: 2,
+    parentId: 0,
+    pageUrl: '',
+    sortId: 2,
+    name: '留言'
+  }, {
+    id: 2 - 1,
+    parentId: 2,
+    pageUrl: '/message/list',
+    sortId: 2,
+    name: '留言列表'
+  },
+  {
     id: 3,
     parentId: 0,
     pageUrl: '',

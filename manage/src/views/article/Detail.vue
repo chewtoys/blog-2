@@ -16,12 +16,12 @@
           </el-form-item>
           <el-form-item label="文章分类">
             <el-select v-model="form.type" placeholder="请选择文章分类">
-              <el-option label="分类1" value=1></el-option>
-              <el-option label="分类2" value=2></el-option>
+              <el-option label="分类1" value="1"></el-option>
+              <el-option label="分类2" value="2"></el-option>
             </el-select>
           </el-form-item>
           <el-form-item label="缩略图">
-            <img :src='form.thumbnail' />
+            <img :src="form.thumbnail" v-if='form.thumbnail' />
             <el-upload
               :action='host + "/upload"'
               :on-preview="handlePreview"
@@ -44,14 +44,14 @@
           </el-form-item>
           <el-form-item label="标签">
             <el-checkbox-group v-model="form.tag_id">
-              <el-checkbox v-for='(item, index) in tags' :label="item.name" :vlaue='item.id'></el-checkbox>
+              <el-checkbox v-for="(item, index) in tags" :label="item.name" :vlaue="item.id"></el-checkbox>
             </el-checkbox-group>
           </el-form-item>
           <el-form-item label="是否顶置">
             <el-switch v-model="form.is_top"></el-switch>
           </el-form-item>
           <el-form-item label="内容摘要">
-            <el-input type='textarea' v-model="form.abstract"></el-input>
+            <el-input type="textarea" v-model="form.abstract"></el-input>
           </el-form-item>
           <el-form-item label="内容">
             <quill-editor
@@ -75,13 +75,12 @@
 import { ajax } from "./../../apis";
 import { quillEditor } from "vue-quill-editor";
 import "quill/dist/quill.snow.css";
-// console.log('dev', process.env.NODE_ENV)
-const host = process.env.NODE_ENV !== 'development' ? 'http://47.98.146.104:4001' : 'http://localhost:4001'
+import { host } from "./../../assets/javascript/util";
 
 export default {
   methods: {
     handleCancel() {
-      this.$router.push('/article/list')
+      this.$router.push("/article/list");
     },
     onEditorChange: function(event) {
       this.form.content = event.html;
@@ -89,23 +88,23 @@ export default {
     onSubmit() {
       console.log(this.form);
       // 格式话出对应的ID
-      let tagId = []
+      let tagId = [];
       this.form.tag_id.forEach(tagChecked => {
         this.tags.forEach(tags => {
           if (tags.name === tagChecked) {
-            tagId.push(tags.id)
+            tagId.push(tags.id);
           }
-        })
-      })
-      this.form.tag_id = tagId.join(',')
-      if(this.$route.params.id !== 'add') {
+        });
+      });
+      this.form.tag_id = tagId.join(",");
+      if (this.$route.params.id !== "add") {
         ajax("/article/modify", this.form).then(res => {
           if (res.code === 200) {
             this.$message({
               type: "success",
               message: "修改成功!",
               onClose: () => {
-                this.$router.push('/article/list')
+                this.$router.push("/article/list");
               }
             });
           }
@@ -117,12 +116,11 @@ export default {
               type: "success",
               message: "添加成功!",
               onClose: () => {
-                this.$router.push('/article/list')
+                this.$router.push("/article/list");
               }
             });
           }
         });
-        
       }
     },
     handleAdd() {
@@ -145,8 +143,8 @@ export default {
     submitForm() {
       console.log(this.form);
       this.form.tag_id.forEach(tagChecked => {
-        console.log(tagChecked)
-      })
+        console.log(tagChecked);
+      });
       // if (this.dialogFrom.id) {
       //   this.modifyTag(this.dialogFrom);
       // } else {
@@ -154,29 +152,29 @@ export default {
       // }
     },
     getArticleDetail(id) {
-      ajax("/article/detail", {id}).then(res => {
+      ajax("/article/detail", { id }).then(res => {
         if (res.code === 200) {
-          this.form = res.data
-          this.form.is_top = res.data.is_top == 1 ? true : false
-          let tagIds = []
-          res.data.tag_id.split(',').forEach(tagId => {
+          this.form = res.data;
+          this.form.is_top = res.data.is_top == 1 ? true : false;
+          let tagIds = [];
+          res.data.tag_id.split(",").forEach(tagId => {
             this.tags.forEach(tags => {
               if (tags.id == tagId) {
-                tagIds.push(tags.name)
+                tagIds.push(tags.name);
               }
-            })
-          })
-          this.form.tag_id = tagIds
+            });
+          });
+          this.form.tag_id = tagIds;
         }
       });
     },
     getTagList() {
       ajax("/tag/list", {}).then(res => {
         if (res.code === 200) {
-          console.log(res)
+          console.log(res);
           this.tags = res.data.items;
-          if(this.$route.params.id !== 'add') {
-            this.getArticleDetail(this.$route.params.id)
+          if (this.$route.params.id !== "add") {
+            this.getArticleDetail(this.$route.params.id);
           }
         }
       });
@@ -235,8 +233,8 @@ export default {
     },
     onSuccess(file, fileList) {
       console.log(file, fileList);
-      this.form.thumbnail = file.data
-      console.log(this.form)
+      this.form.thumbnail = file.data;
+      console.log(this.form);
     }
   },
   components: {
@@ -244,13 +242,13 @@ export default {
   },
   data() {
     return {
-      host: host,
+      host,
       content: "",
       articleTitle: "",
       articleContent: "",
       editorOption: {},
       form: {
-        thumbnail: '',
+        thumbnail: "",
         is_top: true,
         tag_id: []
       },
@@ -265,8 +263,7 @@ export default {
     };
   },
   mounted() {
-    // console.log(this.$route.params.id)
-    this.getTagList()
+    this.getTagList();
   }
 };
 </script>

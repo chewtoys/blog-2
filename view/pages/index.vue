@@ -143,9 +143,12 @@ export default {
         content: '一个人可以被毁灭，但不能被打败。《老人与海》'
       }
     ]
-    const messageList = await axiosAjax('/message/list', {})
-    if (messageList.code === 200 && messageList.data.length) {
-      msg = messageList.data
+    const messageList = await axiosAjax('/message/list', {
+      row: 10,
+      pageNum: 1
+    })
+    if (messageList.code === 200 && messageList.data.items) {
+      msg = messageList.data.items
     }
     let tags = []
     const tagList = await axiosAjax('/tag/list', {})

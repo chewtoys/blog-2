@@ -57,9 +57,7 @@ router.post('/article/modify', async (ctx, next) => {
 
 router.post('/article/del', async (ctx, next) => {
   let postParam = ctx.request.body //获取post提交的数据
-  console.log('postParam', postParam)
   const result = await articleSql.delArticle(postParam)
-  console.log('result', result)
   if (result.affectedRows) {
     ctx.body = {
       code: 200,

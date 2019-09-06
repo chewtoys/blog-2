@@ -11,18 +11,22 @@
         <el-button @click="handleAdd">添加</el-button>
       </el-col>
     </el-row>
-    <el-table :data="tableData" border style="width: 100%">
-      <el-table-column fixed prop="create_time" label="创建日期"></el-table-column>
-      <el-table-column prop="name" label="名称"></el-table-column>
-      <el-table-column prop="alias" label="别名"></el-table-column>
-      <el-table-column fixed="right" label="操作">
-        <template slot-scope="scope">
-          <el-button @click="handleModify(scope.row)" type="text" size="small">编辑</el-button>
-          <el-button @click="handleDel(scope.row.id)" type="text" size="small">删除</el-button>
-        </template>
-      </el-table-column>
-    </el-table>
-    <el-pagination layout="prev, pager, next" :total="total"></el-pagination>
+    <div class="table">
+      <el-table :data="tableData" style="width: 100%">
+        <el-table-column prop="name" label="名称"></el-table-column>
+        <el-table-column prop="alias" label="别名"></el-table-column>
+        <el-table-column prop="create_time" label="创建日期"></el-table-column>
+        <el-table-column fixed="right" label="操作" width='100'>
+          <template slot-scope="scope">
+            <el-button @click="handleModify(scope.row)" type="text" size="small">编辑</el-button>
+            <el-button @click="handleDel(scope.row.id)" type="text" size="small">删除</el-button>
+          </template>
+        </el-table-column>
+      </el-table>
+    </div>
+    <div class="page">
+      <el-pagination layout="prev, pager, next" :total="total" background></el-pagination>
+    </div>
     <el-dialog title="标签维护" :visible.sync="dialogBox">
       <el-form label-width="80px" :model="dialogFrom">
         <el-form-item label="名称">
@@ -97,8 +101,8 @@ export default {
       ajax("/tag/del", { id }).then(res => {
         if (res.code === 200) {
           this.$message({
-            type: 'success',
-            message: '删除成功!'
+            type: "success",
+            message: "删除成功!"
           });
           this.getTagList();
         }
