@@ -60,7 +60,7 @@
         </section>
         <section class="page">
           <ul>
-            <li v-for="(page, index) in Math.ceil(articleTotal/5)">第{{ page }}页</li>
+            <li v-for="(page, index) in Math.ceil(articleTotal/10)">第{{ page }}页</li>
             <li @click="handleMore()">...</li>
           </ul>
         </section>
@@ -76,8 +76,8 @@
           <h3>最新留言</h3>
           <ul>
             <li v-for="(item, index) in msg" :key="index">
-              <span>{{ item.nick }}：</span>
-              <em href>{{ item.content }}</em>
+              <!-- <span>{{ item.nick }}：</span> -->
+              <em>{{index +1}}：{{ item.content }}</em>
             </li>
           </ul>
         </article>

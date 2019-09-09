@@ -94,13 +94,25 @@
   margin: 0 5px 10px 0;
   border-radius: 3px;
 }
+.home aside .tag a:hover {
+  border: 1px solid #825cff;
+}
+.home aside .message {
+  margin-top: 20px;
+}
 .home aside .message li {
   margin-top: 5px;
   line-height: 25px;
   width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
 }
-.home aside .message li span {
-  color: #666;
+.home aside .message li em {
+  display: inline-block;
+  line-height: 28px;
+  max-height: 56px;
+  overflow: hidden;
 }
 .article {
   background: #f5f5f5;
@@ -127,6 +139,9 @@
   padding-left: 30px;
   font-size: 12px;
   float: right;
+}
+.article-detail {
+  padding-bottom: 50px;
 }
 .article-detail h2 {
   text-align: center;

@@ -17,40 +17,25 @@
       <div v-html="articleDetail.content" class="content"></div>
     </article>
     <div class="message">
-      <section class="wrap">
-        <h2>评论记录</h2>
-        <!-- {{messgaeRecord}} -->
-        <ul class="record">
+      <section class="wrap" >
+        <h5 v-if='messgaeRecord.length'>评论记录</h5>
+        <ul class="record" v-if='messgaeRecord.length'>
           <li v-for="(item, index) of messgaeRecord">
             <em>{{item.nick}}：</em>
             <span>{{item.content}}</span>
           </li>
         </ul>
-        <ul>
-          <li v-for="(item, index) of Math.ceil(messgaeRecord.length/10)">第{{index+1}}页</li>
+        <ul v-if='messgaeRecord.length' class="page">
+          <li v-for="(item, index) of Math.ceil(messgaeRecord.length/10)">{{index+1}}</li>
         </ul>
-        <h2>留言咨询</h2>
-        <ul>
-          <li>
-            <span>
-              <i>*</i>昵称：
-            </span>
-            <em>
-              <input type="text" placeholder="请输入您的昵称" v-model="messageFrom.nick" />
-            </em>
-          </li>
-          <li>
-            <span>
-              <i>*</i>内容：
-            </span>
-            <em>
-              <textarea placeholder="请输入您的内容" v-model="messageFrom.content"></textarea>
-            </em>
-          </li>
-          <li>
-            <button @click="submit">提交</button>
-          </li>
-        </ul>
+        <h5>留言咨询</h5>
+        <div>
+          <input type="text" placeholder="您的昵称 *" v-model="messageFrom.nick">
+          <input type="text" placeholder="您的联系方式 *" v-model="messageFrom.contact">
+          <textarea placeholder="您的内容 *" v-model="messageFrom.content"></textarea>
+          <br>
+          <button @click="submit">提交</button>
+        </div>
       </section>
     </div>
     <Footer></Footer>
@@ -119,16 +104,19 @@ export default {
   methods: {
     submit() {
       if (!this.messageFrom.nick) {
-        alert('昵称不能为空');
+        alert('昵称不能为空')
       } else if (!this.messageFrom.content) {
-        alert('留言内容不能为空');
+        alert('留言内容不能为空')
       } else {
         this.messageFrom.article_id = this.$route.query.id
-        axiosAjax('/message/add', this.messageFrom).then(res => {
-
-        }).catch(e => {
-
-        })
+        axiosAjax('/message/add', this.messageFrom)
+          .then(res => {
+            // alert('您的消息我已经收到，稍后我会添加到该看板。')
+            alert('评论成功。')
+          })
+          .catch(e => {
+            alert('消息发送失败，您可以前往关于我页面联系我。')
+          })
       }
     }
   }
@@ -137,11 +125,104 @@ export default {
 
 <style lang="less" scoped>
 .message {
-  background: #ddd;
+  background: #f6f6f6;
+  border-bottom: 1px solid #fff;
+  padding-bottom: 40px;
 
-  h2 {
-    font-size: 20px;
-    padding: 20px 0 10px 0;
+  h5 {
+    font-size: 15px;
+    line-height: 1.571428571428571em;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
+    padding: 30px 0;
+  }
+  .record {
+    width: 820px;
+
+    li {
+      border-bottom: 1px solid #ddd;
+      padding: 10px 0;
+
+      em {
+        color: #825cff;
+      }
+    }
+  }
+  .page {
+    width: 820px;
+    margin-top: 20px;
+
+    li {
+      background: #fff;
+      display: inline-block;
+      padding: 5px 12px;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+  }
+
+  input {
+    width: 400px;
+    background: #fff;
+    border: 0;
+    font-size: 13px;
+    line-height: 30px;
+    height: 30px;
+    padding: 20px 12px;
+    margin: 0 20px 20px 0;
+    float: left;
+  }
+  textarea {
+    width: 820px;
+    background: #fff;
+    border: 0;
+    padding: 15px 12px;
+    outline: none;
+    font-size: 13px;
+    margin-bottom: 20px;
+  }
+  button {
+    position: relative;
+    display: inline-block;
+    width: auto;
+    height: 39px;
+    line-height: 39px;
+    margin: 0;
+    padding: 0 23px;
+    border: 2px solid #303030;
+    font-size: 13px;
+    font-weight: 700;
+    font-family: inherit;
+    text-align: left;
+    color: #303030;
+    text-decoration: none;
+    cursor: pointer;
+    white-space: nowrap;
+    outline: 0;
+    font-style: normal;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    -o-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -ms-border-radius: 4px;
+    border-radius: 4px;
+    text-shadow: none;
+    background-color: transparent;
+    -webkit-transition: color 0.1s linear, background-color 0.1s linear,
+      border-color 0.1s linear;
+    -moz-transition: color 0.1s linear, background-color 0.1s linear,
+      border-color 0.1s linear;
+    -ms-transition: color 0.1s linear, background-color 0.1s linear,
+      border-color 0.1s linear;
+    -o-transition: color 0.1s linear, background-color 0.1s linear,
+      border-color 0.1s linear;
+    transition: color 0.1s linear, background-color 0.1s linear,
+      border-color 0.1s linear;
+    -webkit-box-sizing: initial !important;
+    -moz-box-sizing: initial !important;
+    box-sizing: initial !important;
   }
 }
 </style>

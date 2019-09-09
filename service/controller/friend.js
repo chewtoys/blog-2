@@ -40,13 +40,16 @@ class Friend {
   }
 
   addFriend(param) {
-    const {
+    let {
       name,
       link,
       phone,
       thumbnail,
       remark
     } = param
+    if(!thumbnail) {
+      thumbnail = ''
+    }
     return new Promise((resolve, reject) => {
       pool.query(`insert into friend (name, link, create_time, phone, thumbnail, remark) values ("${name}", "${link}", now(), "${phone}", "${thumbnail}", "${remark}")`, (e, res, fields) => {
         if (e) {
