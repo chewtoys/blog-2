@@ -15,8 +15,8 @@
         </el-table-column>
         <el-table-column prop="nick" label="昵称"></el-table-column>
         <el-table-column prop="content" label="留言内容"></el-table-column>
-        <el-table-column prop="websiter_name" label="网站名称"></el-table-column>
-        <el-table-column prop="websiter_link" label="网站地址"></el-table-column>
+        <el-table-column prop="websister_name" label="网站名称"></el-table-column>
+        <el-table-column prop="websister_link" label="网站地址"></el-table-column>
         <el-table-column prop="title" label="所属文章">
           <template slot-scope="scope">
             <a :href="'/article/detail/' + scope.row.article_id" target="_blank">{{scope.row.title}}</a>
@@ -45,11 +45,11 @@
         <el-form-item label="留言内容" v-if='dialogFrom.content'>
           <el-input v-model="dialogFrom.content" type="textarea"></el-input>
         </el-form-item>
-        <el-form-item label="网站名称" v-if='dialogFrom.websiter_name'>
-          <el-input v-model="dialogFrom.websiter_name"></el-input>
+        <el-form-item label="网站名称" v-if='dialogFrom.websister_name'>
+          <el-input v-model="dialogFrom.websister_name"></el-input>
         </el-form-item>
-        <el-form-item label="网站地址" v-if='dialogFrom.websiter_link'>
-          <el-input v-model="dialogFrom.websiter_link"></el-input>
+        <el-form-item label="网站地址" v-if='dialogFrom.websister_link'>
+          <el-input v-model="dialogFrom.websister_link"></el-input>
         </el-form-item>
         <el-form-item label="所属文章" v-if='dialogFrom.article_id'>
           <el-input v-model="dialogFrom.title"></el-input>

@@ -5,13 +5,13 @@ class Login {
   constructor() {}
   login(param) {
     return new Promise((resolve, reject) => {
-      pool.query(`select name, password from user where name='${param.name}' and password='${param.password}'`, function (error, results, fields) {
-        if (error) {
+      pool.query(`select name, password from user where name='${param.name}' and password='${param.password}'`, function (e, res, fields) {
+        if (e) {
           logs.createLogs(e, 'fail')
-          throw error
+          throw e
         } else {
           logs.createLogs(res, 'success')
-          resolve(results.length)
+          resolve(res.length)
         }
       });
     })

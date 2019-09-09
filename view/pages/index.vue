@@ -91,6 +91,8 @@
 import Nav from '~/components/Nav'
 import Footer from '~/components/Footer'
 import { axiosAjax } from '~/apis'
+import { TDK } from '~/assets/js/e-pan'
+console.log('TDK', TDK)
 
 export default {
   async asyncData({ params }) {
@@ -168,32 +170,21 @@ export default {
     return { msg, tags, articles, articleTotal }
   },
   data() {
-    return {
-      name: '付仲阔博客-你幸福？恩，我姓‘付’。-nuxt版',
-      articles: [
-        {
-          title: 'title',
-          createTime: '时间',
-          content: '<a>aa</a>',
-          img: 'a.jpg'
-        }
-      ],
-      tags: [
-        {
-          name: '爱好'
-        }
-      ]
-    }
+    return {}
   },
   head() {
     return {
-      title: this.name,
+      title: TDK.title,
       meta: [
         // 为了避免子组件中的meta标签不能正确覆盖父组件中相同的标签而产生重复的现象，建议利用 hid 键为meta标签配一个唯一的标识编号。请阅读关于 vue-meta 的更多信息。
         {
-          hid: 'hid  hide ',
-          name: 'name name',
-          conntent: 'content content'
+          // hid: 'hid  hide ',
+          // name: 'name name',
+          // conntent: 'content content',
+          description: TDK.description
+        },
+        {
+          keywords: TDK.keywords
         }
       ]
     }

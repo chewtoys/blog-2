@@ -25,6 +25,11 @@ export default {
           router: '/article/list'
         },
         {
+          text: '友情链接',
+          id: 'friend',
+          router: '/friend'
+        },
+        {
           text: '关于我',
           id: 'about',
           router: '/about'
@@ -41,7 +46,7 @@ export default {
       if (item.id !== 'admin'){
         this.$router.push(item.router)
       } else {
-        window.location.href = 'http://admin.xcyzwang.com'
+        window.location.href = 'http://admin.fuzhongkuo.com'
       }
       // if (item.id != 'admin') {
       //   this.$router.push(item.id)
