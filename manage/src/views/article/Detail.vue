@@ -21,9 +21,9 @@
             </el-select>
           </el-form-item>
           <el-form-item label="缩略图">
-            <img :src="form.thumbnail" v-if='form.thumbnail' />
+            <img :src="form.thumbnail" v-if="form.thumbnail">
             <el-upload
-              :action='host + "/upload"'
+              :action="host + '/upload'"
               :on-preview="handlePreview"
               :on-remove="handleRemove"
               :before-remove="beforeRemove"
@@ -33,7 +33,7 @@
               :on-exceed="handleExceed"
             >
               <el-button size="small" type="primary">点击上传</el-button>
-              <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
+              <!-- <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div> -->
             </el-upload>
           </el-form-item>
           <el-form-item label="作者">
@@ -55,11 +55,18 @@
           </el-form-item>
           <el-form-item label="内容">
             <quill-editor
-              ref="myTextEditor"
+              ref="myQuillEditor"
               :content="form.content"
-              :config="editorOption"
+              :options="editorOption"
               @change="onEditorChange($event)"
             ></quill-editor>
+            <el-upload
+              :action="host + '/upload'"
+              :on-success="onSuccess1"
+              style="position: fixed; top: -999px; left: -999px"
+            >
+              <el-button size="small" type="primary" id='uploadImg'>点击上传</el-button>
+            </el-upload>
           </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="onSubmit">提交</el-button>
@@ -79,6 +86,32 @@ import { host } from "./../../assets/javascript/util";
 
 export default {
   methods: {
+    handleBeforeUpload(event) {
+      const files = event.target.files[0];
+      const formData = new FormData();
+      formData.append("files", files);
+      this.$http
+        .post(host + "/upload", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data"
+          }
+        })
+        .then(res => {
+          console.log(res);
+          if (res && res.status == 200) {
+            const value = res.data.url;
+            this.addImgRange = this.$refs.myQuillEditor.quill.getSelection();
+            this.$refs.myQuillEditor.quill.insertEmbed(
+              this.addImgRange != null ? this.addImgRange.index : 0,
+              "image",
+              value
+            );
+          }
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    },
     handleCancel() {
       this.$router.push("/article/list");
     },
@@ -235,6 +268,17 @@ export default {
       console.log(file, fileList);
       this.form.thumbnail = file.data;
       console.log(this.form);
+    },
+    onSuccess1(file, fileList) {
+      console.log(file, fileList);
+
+      const value = file.data;
+      let addImgRange = this.$refs.myQuillEditor.quill.getSelection();
+      this.$refs.myQuillEditor.quill.insertEmbed(
+        addImgRange != null ? addImgRange.index : 0,
+        "image",
+        value
+      );
     }
   },
   components: {
@@ -242,11 +286,42 @@ export default {
   },
   data() {
     return {
+      editorOption: {
+        placeholder: "请输入内容",
+        theme: "snow",
+        modules: {
+          toolbar: {
+            container: [
+              ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+              ['blockquote', 'code-block'],
+              [{'header': 1}, {'header': 2}],               // custom button values
+              [{'list': 'ordered'}, {'list': 'bullet'}],
+              [{'script': 'sub'}, {'script': 'super'}],      // superscript/subscript
+              [{'indent': '-1'}, {'indent': '+1'}],          // outdent/indent
+              [{'direction': 'rtl'}],                         // text direction
+              [{'size': ['small', false, 'large', 'huge']}],  // custom dropdown
+              [{'header': [1, 2, 3, 4, 5, 6, false]}],
+              [{'color': []}, {'background': []}],          // dropdown with defaults from theme
+              [{'font': []}],
+              [{'align': []}],
+              ['link', 'image', 'video'],
+              ['clean']                                         // remove formatting button
+            ],
+            handlers: {
+              image: function(value) {
+                console.log('value', value)
+                if (value) {
+                  document.querySelector("#uploadImg").click();
+                }
+              }
+            }
+          }
+        }
+      },
       host,
       content: "",
       articleTitle: "",
       articleContent: "",
-      editorOption: {},
       form: {
         thumbnail: "",
         is_top: true,
