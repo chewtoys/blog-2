@@ -3,13 +3,15 @@
     <Nav></Nav>
     <article class="wrap article-detail min-box">
       <h2>{{ articleDetail.title }}</h2>
-      <div v-html="articleDetail.abstract" class="content"></div>
+      <div v-if='articleDetail.abstract' class="abstract">{{articleDetail.abstract}}</div>
       <div class="tag">
-        <span v-if="articleDetail.sourse">来源：{{ articleDetail.sourse }}</span>
+        <span v-if="articleDetail.sourse && articleDetail.sourse != 'undefined'">来源：{{ articleDetail.sourse }}</span>
         <span v-if="articleDetail.author">作者：{{ articleDetail.author }}</span>
         <span v-if="articleDetail.preview_num">浏览：{{ articleDetail.preview_num }}</span>
         <span v-if="articleDetail.create_time">发布时间：{{ articleDetail.create_time }}</span>
-        <span v-if="articleDetail.tag_id">标签：{{ articleDetail.tag_id }}</span>
+        <span v-if="articleDetail.tag_id">标签：
+          <em v-for='(item, index) of articleDetail.tagName' >{{item}}  </em>
+        </span>
       </div>
       <div class="img">
         <img :src="articleDetail.thumbnail">
@@ -56,8 +58,24 @@ export default {
     })
     if (articleDetail.code === 200 && articleDetail.data) {
       articleDetail = articleDetail.data
+      const tagIds = articleDetail.tag_id.split(',')
+      if(tagIds.length) {
+        articleDetail.tagIds = tagIds
+        let tagList = await axiosAjax('/tag/list', {})
+        if (tagList.code === 200 && tagList.data.total) {
+          let tagName = []
+          tagIds.forEach(id => {
+            tagList.data.items.forEach(list => {
+              if (id == list.id) {
+                tagName.push(list.name)
+              }
+            })
+          })
+          articleDetail.tagName = tagName
+        }
+      }
     }
-
+    
     let messgaeList = await axiosAjax('/message/list', {
       article_id: id,
       row: 10,
@@ -124,6 +142,20 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.abstract {
+  border: 1px dashed #ddd;
+  padding: 10px 20px;
+  text-indent: 2em;
+  border-radius: 3px;
+  margin-bottom: 20px;
+}
+.tag {
+  text-align: right;
+  em {
+    color: #825cff;
+    cursor: pointer;
+  }
+}
 .message {
   background: #f6f6f6;
   border-bottom: 1px solid #fff;

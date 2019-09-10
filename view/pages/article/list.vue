@@ -3,7 +3,7 @@
     <Nav></Nav>
     <section class="wrap article min-box">
       <h2>文章列表</h2>
-      <ul>
+      <ul class="list">
         <!-- key不推荐用index,使用：key为了在渲染虚拟dom时候减少开销，虚拟dom使用的时diff算法 -->
         <li v-for="(item, index) in articleList" :key="index" @click="handleDetail(item)">
           <!-- <span>{{ index + 1 }}.</span> -->
@@ -11,13 +11,14 @@
           <span class="time">发布时间：{{ item.create_time }}</span>
         </li>
       </ul>
-      <!-- <dl>
-        <dd>1</dd>
-        <dd>2</dd>
-        <dd>3</dd>
-        <dd>4</dd>
-        <dd>5</dd>
-      </dl> -->
+      <ul class="page">
+        <li
+          :class="page === currPage ? 'active' : ''"
+          @click="handlePage(page)"
+          v-for="(page, index) in Math.ceil(articleTotal/10)"
+        >{{ page }}</li>
+        <li @click="handleMore()">...</li>
+      </ul>
     </section>
     <Footer></Footer>
   </section>
@@ -32,34 +33,23 @@ import { TDK } from '~/assets/js/e-pan'
 export default {
   async asyncData(context) {
     const { id } = context.query
+    let articleTotal = 0
     let articleList = await axiosAjax('/article/list', {
       row: 10,
       pageNum: 1
     })
-    console.log('articleList', articleList)
     if (articleList.code === 200 && articleList.data) {
+      articleTotal = articleList.data.total
       articleList = articleList.data.items
     } else {
-      articleList = {}
+      articleList = []
     }
-    return { articleList }
+    return { articleList, articleTotal }
   },
   data() {
     return {
-      name: '付仲阔博客-你幸福？恩，我姓‘付’。-nuxt版',
-      articles: [
-        {
-          title: 'title',
-          createTime: '时间',
-          content: '<a>aa</a>',
-          img: 'a.jpg'
-        }
-      ],
-      tags: [
-        {
-          name: '爱好'
-        }
-      ]
+      articleList: [],
+      currPage: 1,
     }
   },
   head() {
@@ -88,7 +78,83 @@ export default {
     handleDetail(item) {
       console.log(`/article/detail?id=${item.id}`)
       this.$router.push(`/article/detail?id=${item.id}`)
+    },
+    handleMore() {
+      this.$router.push('/article/list')
+    },
+    handlePage(num) {
+      this.currPage = num
+      axiosAjax('/article/list', {
+        row: 10,
+        pageNum: num
+      })
+        .then(res => {
+          console.log(res)
+          if (res.code === 200 && res.data.items.length) {
+            this.articleList = res.data.items
+          }
+        })
+        .catch(e => {})
     }
   }
 }
 </script>
+
+<style lang="less" scoped>
+@import url('./../../assets/less/mixin.less');
+.article {
+  background: #f5f5f5;
+  padding: 10px 30px;
+  margin: 20px auto;
+
+  h2 {
+    height: 50px;
+    line-height: 50px;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .list {
+    li {
+      height: 50px;
+      line-height: 50px;
+      border-bottom: 1px dotted #ddd;
+      cursor: pointer;
+      padding: 0 20px;
+
+      &:hover {
+        background: #fff;
+      }
+
+      .time {
+        color: #666;
+        padding-left: 30px;
+        font-size: 12px;
+        float: right;
+      }
+    }
+  }
+  .page {
+    text-align: right;
+    margin: 30px 0;
+    li {
+      background: #ddd;
+      color: #fff;
+      padding: 3px 10px;
+      border-radius: 3px;
+      display: inline-block;
+      margin-left: 15px;
+      cursor: pointer;
+
+      &:hover {
+        color: @main-color;
+      }
+      &.active {
+        background: @main-color;
+        &:hover {
+          color: #fff;
+        }
+      }
+    }
+  }
+}
+</style>

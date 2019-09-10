@@ -60,7 +60,11 @@
         </section>
         <section class="page">
           <ul>
-            <li v-for="(page, index) in Math.ceil(articleTotal/10)">第{{ page }}页</li>
+            <li
+              :class="page === currPage ? 'active' : ''"
+              @click="handlePage(page)"
+              v-for="(page, index) in Math.ceil(articleTotal/5)"
+            >{{ page }}</li>
             <li @click="handleMore()">...</li>
           </ul>
         </section>
@@ -96,55 +100,7 @@ console.log('TDK', TDK)
 
 export default {
   async asyncData({ params }) {
-    let msg = [
-      {
-        nick: '雨果',
-        content:
-          '真爱的第一个征兆，在男孩身上是胆怯，在女孩身上是大胆。《悲惨世界》'
-      },
-      {
-        nick: '狄更斯',
-        content:
-          '我有个原则：想到要做一件事，就一定要做到，而且要做得彻底。《远大前程》'
-      },
-      {
-        nick: '玛格丽特·杜拉斯',
-        content:
-          '那时候，你还很年轻，人人都说你美。现在，我是特意来告诉你，对我来说，我觉得现在你比年轻的时候更美。与你那时的面貌相比，我更爱你现在备受摧残的面容。《情人》'
-      },
-      {
-        nick: '孔子',
-        content: '三人行，必有我师焉，择其善者而从之，其不善者而改之。《论语》'
-      },
-      {
-        nick: '戴尔·卡耐基',
-        content:
-          '人不是因为没有信念而失败，而是因为不能把信念化成行动，并且坚持到底。《人性的弱点》'
-      },
-      {
-        nick: '爱默生',
-        content:
-          '有两件事我最憎恶：没有信仰的博才多学和充满信仰的愚昧无知。《处世之道·崇拜》'
-      },
-      {
-        nick: '罗素',
-        content:
-          '爱情只有当它是自由自在时，才会叶茂花繁。认为爱情是某种义务的思想只能置爱情于死地。只消一句话：你应当爱某个人，就足以使你对这个人恨之入骨。'
-      },
-      {
-        nick: '雷锋',
-        content:
-          '钉子有两个长处：一个是“挤”劲，一个是“钻”劲。我们在学习上，也要提倡这种“钉子”精神，善于挤和钻。'
-      },
-      {
-        nick: '马克·吐温',
-        content: '“原则”是“偏见”的另一个名称。'
-      },
-      {
-        nick: '海明威',
-        content: '一个人可以被毁灭，但不能被打败。《老人与海》'
-      }
-    ]
+    let msg = []
     const messageList = await axiosAjax('/message/list', {
       row: 10,
       pageNum: 1
@@ -160,7 +116,7 @@ export default {
     let articles = []
     let articleTotal = 0
     const articleList = await axiosAjax('/article/list', {
-      row: 10,
+      row: 5,
       pageNum: 1
     })
     if (articleList.code === 200) {
@@ -170,7 +126,10 @@ export default {
     return { msg, tags, articles, articleTotal }
   },
   data() {
-    return {}
+    return {
+      articles: [],
+      currPage: 1
+    }
   },
   head() {
     return {
@@ -207,7 +166,41 @@ export default {
     },
     handleMore() {
       this.$router.push('/article/list')
+    },
+    handlePage(num) {
+      this.currPage = num
+      axiosAjax('/article/list', {
+        row: 5,
+        pageNum: num
+      })
+        .then(res => {
+          console.log(res)
+          if (res.code === 200 && res.data.items.length) {
+            this.articles = res.data.items
+          }
+        })
+        .catch(e => {})
     }
   }
 }
 </script>
+
+
+<style lang="less" scoped>
+@import url('./../assets/less/mixin.less');
+.page {
+  li {
+    background: #ddd;
+    color: #fff;
+    padding: 3px 10px;
+    border-radius: 3px;
+
+    &.active {
+      background: @main-color;
+      &:hover {
+        color: #fff;
+      }
+    }
+  }
+}
+</style>
