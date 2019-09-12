@@ -103,7 +103,6 @@ class Article {
   }
 
   modifyArticle(param) {
-    debugger
     let {
       id,
       title,
@@ -117,7 +116,7 @@ class Article {
       preview_num,
       abstract
     } = param
-    preview_num = preview_num ? 1 : preview_num + 1
+    preview_num = preview_num ? preview_num : 1
     // content = content.replace(/"/g, "'")
     return new Promise((resolve, reject) => {
       pool.query(`update article set title="${title}", 

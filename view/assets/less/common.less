@@ -104,3 +104,13 @@ footer {
   line-height: 50px;
   background: @gray-color;
 }
+
+.page-enter-active,
+.page-leave-active {
+  transition: opacity .5s;
+}
+
+.page-enter,
+.page-leave-active {
+  opacity: 0;
+}

@@ -14,28 +14,28 @@ module.exports = {
   // 该配置项用于配置应用默认的meta标签。
   head: {
     //titleTemplate: '%s - Nuxt.js',
-    title: pkg.name,
-    meta: [{
-        charset: 'utf-8'
-      },
-      {
-        name: 'viewport',
-        content: 'width=device-width, initial-scale=1'
-      },
-      {
-        hid: 'description',
-        name: 'description',
-        content: pkg.description
-      }
-    ],
-    link: [{
-      rel: 'stylesheet',
-      href: 'https://fonts.googleapis.com/css?family=Roboto'
-    }, {
-      rel: 'icon',
-      type: 'image/x-icon',
-      href: '/favicon.ico'
-    }]
+    // title: pkg.name,
+    // meta: [{
+    //     charset: 'utf-8'
+    //   },
+    //   {
+    //     name: 'viewport',
+    //     content: 'width=device-width, initial-scale=1'
+    //   },
+    //   {
+    //     hid: 'description',
+    //     name: 'description',
+    //     content: pkg.description
+    //   }
+    // ],
+    // link: [{
+    //   rel: 'stylesheet',
+    //   href: 'https://fonts.googleapis.com/css?family=Roboto'
+    // }, {
+    //   rel: 'icon',
+    //   type: 'image/x-icon',
+    //   href: '/favicon.ico'
+    // }]
   },
 
   /*

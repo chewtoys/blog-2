@@ -3,7 +3,7 @@
 const log4js = require('log4js');
 var path = require('path');
 var baseLogPath = path.resolve(__dirname, '../log/files/log')
-console.log('__dirname', path.resolve(__dirname, '../log/files/log'))
+// console.log('__dirname', path.resolve(__dirname, '../log/files/log'))
 // console.log('baseLogPath', baseLogPath)
 // console.log('require.main.filename', require.main.filename)
 
