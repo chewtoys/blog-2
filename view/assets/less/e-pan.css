@@ -141,6 +141,9 @@
   padding-top: 10px;
   line-height: 25px;
 }
+.article-detail a {
+  color: #825cff !important;
+}
 .about {
   display: flex;
   flex-direction: column;
