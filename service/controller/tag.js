@@ -6,8 +6,14 @@ class Tag {
   constructor() {}
 
   query(param) {
+    let {
+      row,
+      pageNum
+    } = param
+    row = row ? row : 10
+    console.log(pageNum, row)
     return new Promise((resolve, reject) => {
-      pool.query('SELECT * FROM tag LIMIT 10', (e, res, fields) => {
+      pool.query(`SELECT * FROM tag LIMIT ${row * (pageNum -1)}, ${row}`, (e, res, fields) => {
         if (e) {
           logs.createLogs(e, 'fail')
           throw e

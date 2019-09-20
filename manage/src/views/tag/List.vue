@@ -25,7 +25,14 @@
       </el-table>
     </div>
     <div class="page">
-      <el-pagination layout="prev, pager, next" :total="total" background></el-pagination>
+      <el-pagination 
+      @size-change='handleSizeChange'
+      @current-change='handleCurrentChange'
+      @prev-click='handlePrevClick'
+      @next-click="handleNextClick"
+      layout="prev, pager, next" 
+      :total="total" 
+      background></el-pagination>
     </div>
     <el-dialog title="标签维护" :visible.sync="dialogBox">
       <el-form label-width="80px" :model="dialogFrom">
@@ -51,7 +58,6 @@ export default {
       this.dialogBox = true;
     },
     handleModify(row) {
-      console.log(row);
       this.dialogFrom = row;
       this.dialogBox = true;
     },
@@ -72,8 +78,12 @@ export default {
         this.addTag(this.dialogFrom);
       }
     },
-    getTagList() {
-      ajax("/tag/list", {}).then(res => {
+    getTagList({pageNum, row}) {
+      console.log(pageNum, row)
+      ajax("/tag/list", {
+        pageNum,
+        row
+      }).then(res => {
         if (res.code === 200) {
           this.tableData = res.data.items;
           this.total = res.data.total;
@@ -83,7 +93,7 @@ export default {
     addTag(param) {
       ajax("/tag/add", param).then(res => {
         if (res.code === 200) {
-          this.getTagList();
+          this.getTagList(this.pageParam);
           this.dialogBox = false;
         }
       });
@@ -91,7 +101,7 @@ export default {
     modifyTag(param) {
       ajax("/tag/modify", param).then(res => {
         if (res.code === 200) {
-          this.getTagList();
+          this.getTagList(this.pageParam);
           this.dialogBox = false;
         }
       });
@@ -104,10 +114,27 @@ export default {
             type: "success",
             message: "删除成功!"
           });
-          this.getTagList();
+          this.getTagList(this.pageParam);
         }
       });
-    }
+    },
+    handleSizeChange(num) {
+      console.log(num)
+      this.pageParam.row = num
+      this.getTagList(this.pageParam);
+    },
+    handleCurrentChange(num) {
+      this.pageParam.pageNum = num
+      this.getTagList(this.pageParam);
+    },
+    handlePrevClick(num) {
+      this.pageParam.pageNum = num
+      this.getTagList(this.pageParam);
+    },
+    handleNextClick(num) {
+      this.pageParam.pageNum = num
+      this.getTagList(this.pageParam);
+    },
   },
   data() {
     return {
@@ -117,11 +144,15 @@ export default {
       dialogFrom: {
         name: "",
         alias: ""
+      },
+      pageParam: {
+        row: 10,
+        pageNum: 1
       }
     };
   },
   mounted() {
-    this.getTagList();
+    this.getTagList(this.pageParam);
   }
 };
 </script>

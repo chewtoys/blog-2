@@ -149,7 +149,10 @@ export default {
       });
     },
     getTagList() {
-      ajax("/tag/list", {}).then(res => {
+      ajax("/tag/list", {
+        row: 999,
+        pageNum: 1
+      }).then(res => {
         if (res.code === 200) {
           console.log(res);
           this.tags = res.data.items;

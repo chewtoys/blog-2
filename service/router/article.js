@@ -71,4 +71,19 @@ router.post('/article/del', async (ctx, next) => {
   }
 })
 
+router.post('/atricle/qryTag', async (ctx, next) => {
+  let postParam = ctx.request.body;
+  const result = await articleSql.qryTagArticle(postParam)
+  const tagTotal = await articleSql.qryTagArticleTotal(postParam)
+  let data = {
+    items: result,
+    total: tagTotal['COUNT(*)']
+  }
+  ctx.body = {
+    code: 200,
+    data,
+    dataMsg: 'success'
+  };
+})
+
 module.exports = router

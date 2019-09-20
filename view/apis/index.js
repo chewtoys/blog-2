@@ -7,7 +7,7 @@ import axios from 'axios'
 // var host = 'http://47.98.146.104:4001'
 // var host = 'https://nodeuat.sgsonline.com.cn'
 // var host = 'https://nodedev.sgsonline.com.cn'
-const host = process.env.NODE_ENV !== 'development' ? 'http://47.98.146.104:4001' : 'http://localhost:4001'
+const host = process.env.NODE_ENV !== 'development' ? 'http://47.98.146.104:4001' : 'http://127.0.0.1:4001'
 console.log('host', host)
 
 const axiosAjax = (url, params, option) => {
@@ -26,6 +26,7 @@ const axiosAjax = (url, params, option) => {
     })
     .then(res => {
       if (res.status === 200) {
+        console.log(res.data)
         return res.data
       }
     })

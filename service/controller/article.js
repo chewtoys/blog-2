@@ -158,6 +158,44 @@ class Article {
       })
     })
   }
+
+  qryTagArticle(param) {
+    const {
+      id,
+      row,
+      pageNum
+    } = param
+
+    return new Promise((resolve, reject) => {
+      // `SELECT * FROM article WHERE find_in_set(${id}, tag_id) order by create_time desc LIMIT ${row * (pageNum -1)},${row}`
+      console.log(`SELECT * FROM article WHERE find_in_set(${Number(id)}, tag_id) order by create_time desc LIMIT ${row * (pageNum -1)}, ${row}`)
+      // query the articel table tag_id for id data
+      pool.query(`SELECT * FROM article WHERE find_in_set(${Number(id)}, tag_id) order by create_time desc LIMIT ${row * (pageNum -1)}, ${row}`, (e, res, fields) => {
+        if (e) {
+          logs.createLogs(e, 'fail')
+          throw e
+        } else {
+          logs.createLogs(res, 'success')
+          resolve(res)
+        }
+      })
+    })
+  }
+
+  qryTagArticleTotal(param) {
+    const {id} = param
+    return new Promise((resolve, reject) => {
+      pool.query(`SELECT COUNT(*) FROM article where find_in_set(${id}, tag_id)`, (e, res, fields) => {
+        if (e) {
+          logs.createLogs(e, 'fail')
+          throw e
+        } else {
+          logs.createLogs(res, 'success')
+          resolve(res[0])
+        }
+      })
+    })
+  }
 }
 
 module.exports = new Article()

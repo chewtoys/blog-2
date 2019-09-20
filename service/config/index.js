@@ -15,7 +15,7 @@ const config = {
     USERNAME: 'root',
     PASSWORD: 'root',
     PORT: '3306',
-    HOST: '127.0.0.1'
+    HOST: '47.98.146.104'
   },
   // 阿里云oss
   oss: {

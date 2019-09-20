@@ -73,7 +73,7 @@
         <article class="tag">
           <h3>分类标签</h3>
           <div>
-            <a v-for="(tag, index) in tags" :key="index">{{ tag.name }}</a>
+            <a v-for="(tag, index) in tags" :key="index" @click="handleTag(tag)">{{ tag.name }}</a>
           </div>
         </article>
         <article class="message">
@@ -109,7 +109,10 @@ export default {
       msg = messageList.data.items
     }
     let tags = []
-    const tagList = await axiosAjax('/tag/list', {})
+    const tagList = await axiosAjax('/tag/list', {
+      row: 999,
+      pageNum: 1
+    })
     if (tagList.code === 200) {
       tags = tagList.data.items
     }
@@ -180,6 +183,9 @@ export default {
           }
         })
         .catch(e => {})
+    },
+    handleTag(tag) {
+      this.$router.push(`/tag?id=${tag.id}`)
     }
   }
 }

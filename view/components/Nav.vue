@@ -46,7 +46,8 @@ export default {
       if (item.id !== 'admin'){
         this.$router.push(item.router)
       } else {
-        window.location.href = 'http://admin.fuzhongkuo.com'
+        // window.location.href = 'http://admin.fuzhongkuo.com'
+        window.open('http://admin.fuzhongkuo.com')
       }
       // if (item.id != 'admin') {
       //   this.$router.push(item.id)

@@ -3,7 +3,7 @@ const tagSql = require('../controller/tag')
 
 router.post('/tag/list', async (ctx, next) => {
   let postParam = ctx.request.body //获取post提交的数据
-  let sqlData = await tagSql.query()
+  let sqlData = await tagSql.query(postParam)
   let tagTotal = await tagSql.queryTotal()
 
   let data = {
