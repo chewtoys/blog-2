@@ -108,6 +108,8 @@ export default {
     li {
       float: left;
       margin: 0 40px 40px 0;
+      width: 200px;
+      height: 100px;
     }
     img {
       width: 200px;
