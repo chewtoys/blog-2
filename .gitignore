@@ -14,3 +14,5 @@ dist/
 *.ntvs*
 *.njsproj
 *.sln
+*.log
+*.code-workspace
