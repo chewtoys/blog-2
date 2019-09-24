@@ -3,39 +3,42 @@
     <Nav></Nav>
     <article class="wrap article-detail min-box">
       <h2>{{ articleDetail.title }}</h2>
-      <div v-if='articleDetail.abstract' class="abstract">{{articleDetail.abstract}}</div>
+      <div v-if="articleDetail.abstract" class="abstract">{{articleDetail.abstract}}</div>
       <div class="tag">
-        <span v-if="articleDetail.sourse && articleDetail.sourse != 'undefined'">来源：{{ articleDetail.sourse }}</span>
+        <span
+          v-if="articleDetail.sourse && articleDetail.sourse != 'undefined'"
+        >来源：{{ articleDetail.sourse }}</span>
         <span v-if="articleDetail.author">作者：{{ articleDetail.author }}</span>
         <span v-if="articleDetail.preview_num">浏览：{{ articleDetail.preview_num }}</span>
         <span v-if="articleDetail.create_time">发布时间：{{ articleDetail.create_time }}</span>
-        <span v-if="articleDetail.tag_id">标签：
-          <em v-for='(item, index) of articleDetail.tagName' >{{item}}  </em>
+        <span v-if="articleDetail.tag_id">
+          标签：
+          <em v-for="(item, index) of articleDetail.tagName" @click="handleTag(item)">{{item.name}}</em>
         </span>
       </div>
       <div class="img">
-        <img :src="articleDetail.thumbnail">
+        <img :src="articleDetail.thumbnail" />
       </div>
       <div v-html="articleDetail.content" class="content"></div>
     </article>
     <div class="message">
-      <section class="wrap" >
-        <h5 v-if='messgaeRecord.length'>评论记录</h5>
-        <ul class="record" v-if='messgaeRecord.length'>
+      <section class="wrap">
+        <h5 v-if="messgaeRecord.length">评论记录</h5>
+        <ul class="record" v-if="messgaeRecord.length">
           <li v-for="(item, index) of messgaeRecord">
             <em>{{item.nick}}：</em>
             <span>{{item.content}}</span>
           </li>
         </ul>
-        <ul v-if='messgaeRecord.length' class="page">
+        <ul v-if="messgaeRecord.length" class="page">
           <li v-for="(item, index) of Math.ceil(messgaeRecord.length/10)">{{index+1}}</li>
         </ul>
         <h5>留言咨询</h5>
         <div>
-          <input type="text" placeholder="您的昵称 *" v-model="messageFrom.nick">
-          <input type="text" placeholder="您的联系方式 *" v-model="messageFrom.contact">
+          <input type="text" placeholder="您的昵称 *" v-model="messageFrom.nick" />
+          <input type="text" placeholder="您的联系方式 *" v-model="messageFrom.contact" />
           <textarea placeholder="您的内容 *" v-model="messageFrom.content"></textarea>
-          <br>
+          <br />
           <button @click="submit">提交</button>
         </div>
       </section>
@@ -59,15 +62,18 @@ export default {
     if (articleDetail.code === 200 && articleDetail.data) {
       articleDetail = articleDetail.data
       const tagIds = articleDetail.tag_id.split(',')
-      if(tagIds.length) {
+      if (tagIds.length) {
         articleDetail.tagIds = tagIds
-        let tagList = await axiosAjax('/tag/list', {})
+        let tagList = await axiosAjax('/tag/list', {
+          row: 999,
+          pageNum: 1
+        })
         if (tagList.code === 200 && tagList.data.total) {
           let tagName = []
           tagIds.forEach(id => {
             tagList.data.items.forEach(list => {
               if (id == list.id) {
-                tagName.push(list.name)
+                tagName.push(list)
               }
             })
           })
@@ -75,7 +81,7 @@ export default {
         }
       }
     }
-    
+
     let messgaeList = await axiosAjax('/message/list', {
       article_id: id,
       row: 10,
@@ -120,6 +126,9 @@ export default {
     Footer
   },
   methods: {
+    handleTag(tag) {
+      this.$router.push(`/tag?id=${tag.id}`)
+    },
     submit() {
       if (!this.messageFrom.nick) {
         alert('昵称不能为空')
@@ -154,6 +163,8 @@ export default {
   em {
     color: #825cff;
     cursor: pointer;
+    padding-right: 7px;
+    font-size: 12px;
   }
 }
 .message {
