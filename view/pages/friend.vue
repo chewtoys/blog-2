@@ -4,8 +4,8 @@
     <div class="wrap list">
       <ul>
         <li v-for="(item, index) of friendList">
-          <a :href="item.link" target="_blank">
-            <img :src="item.thumbnail" v-if="item.thumbnail" :alt="item.name">
+          <a :href="item.link" target="_blank" :title='item.name'>
+            <img :src="item.thumbnail" v-if="item.thumbnail" :alt="item.name" :title='item.name'>
             <span v-else>{{item.name}}</span>
           </a>
         </li>
@@ -108,6 +108,8 @@ export default {
     li {
       float: left;
       margin: 0 40px 40px 0;
+      width: 200px;
+      height: 100px;
     }
     img {
       width: 200px;

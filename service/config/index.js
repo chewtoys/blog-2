@@ -3,25 +3,18 @@ const config = {
   port: 4000,
 
   // 数据库配置
-  // database: {
-  //   DATABASE: 'bolg',
-  //   USERNAME: 'root',
-  //   PASSWORD: '123456',
-  //   PORT: '3306',
-  //   HOST: '127.0.0.1'
-  // },
   database: {
     DATABASE: 'bolg',
     USERNAME: 'root',
-    PASSWORD: 'root',
+    PASSWORD: '123456',
     PORT: '3306',
-    HOST: '47.98.146.104'
+    HOST: '127.0.0.1'
   },
   // 阿里云oss
   oss: {
     region: 'oss-cn-hangzhou',
-    accessKeyId: 'LTAI4Fhy1PTDDKwyFofpJLGr',
-    accessKeySecret: 'QkG8vnTKDBYxiGgAohGDrdtC1xM7EP',
+    accessKeyId: 'your id',
+    accessKeySecret: 'your secret',
     bucket: 'fuzhongkuo'
   }
 }
