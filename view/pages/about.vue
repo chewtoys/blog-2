@@ -54,7 +54,7 @@ export default {
   },
   head() {
     return {
-      title: TDK.title,
+      title: '关于我 | 你幸福？嗯，我姓“付”',
       meta: [
         // 为了避免子组件中的meta标签不能正确覆盖父组件中相同的标签而产生重复的现象，建议利用 hid 键为meta标签配一个唯一的标识编号。请阅读关于 vue-meta 的更多信息。
         {

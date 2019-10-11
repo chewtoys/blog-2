@@ -142,7 +142,7 @@ function formatNum(str, size, delimiter) {
 }
 
 const TDK = {
-    title: '付仲阔的博客——你幸福？恩，我姓‘付’',
+    title: '付仲阔博客 | 前端博客-前端译文-前端资讯',
     description: '博客主要分享前端业内资讯，翻译国外前端文章，分享个人文章的公共资源平台。',
     keywords: '前端博客，前端译文，前端资讯'
 }

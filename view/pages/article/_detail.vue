@@ -5,15 +5,19 @@
       <h2>{{ articleDetail.title }}</h2>
       <div v-if="articleDetail.abstract" class="abstract">{{articleDetail.abstract}}</div>
       <div class="tag">
-        <span
-          v-if="articleDetail.sourse && articleDetail.sourse != 'undefined'"
-        >来源：{{ articleDetail.sourse }}</span>
+        <span v-if="articleDetail.sourse && articleDetail.sourse != 'undefined'">
+          来源：
+          <a :href="articleDetail.sourse" target="_blank">{{ articleDetail.sourse }}</a>
+        </span>
         <span v-if="articleDetail.author">作者：{{ articleDetail.author }}</span>
         <span v-if="articleDetail.preview_num">浏览：{{ articleDetail.preview_num }}</span>
         <span v-if="articleDetail.create_time">发布时间：{{ articleDetail.create_time }}</span>
         <span v-if="articleDetail.tag_id">
           标签：
-          <em v-for="(item, index) of articleDetail.tagName" @click="handleTag(item)">{{item.name}}</em>
+          <em
+            v-for="(item, index) of articleDetail.tagName"
+            @click="handleTag(item)"
+          >{{item.name}}</em>
         </span>
       </div>
       <div class="img">
@@ -105,7 +109,7 @@ export default {
   },
   head() {
     return {
-      title: this.articleDetail.title || TDK.title,
+      title: this.articleDetail.title + ' 前端博客-前端译文-前端资讯',
       meta: [
         // 为了避免子组件中的meta标签不能正确覆盖父组件中相同的标签而产生重复的现象，建议利用 hid 键为meta标签配一个唯一的标识编号。请阅读关于 vue-meta 的更多信息。
         {
