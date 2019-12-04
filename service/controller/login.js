@@ -11,7 +11,7 @@ class Login {
         password: param.password
       })
       console.log('token', token)
-      
+
       pool.query(`select name, password from user where name='${param.name}' and password='${param.password}'`, function (e, res, fields) {
         if (e) {
           logs.createLogs(e, 'fail')
@@ -22,7 +22,6 @@ class Login {
         }
       });
     })
-
   }
 }
 

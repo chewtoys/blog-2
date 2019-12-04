@@ -1,5 +1,6 @@
 import axios from 'axios'
-const host = process.env.NODE_ENV !== 'development' ? 'http://47.98.146.104:4001' : 'http://localhost:4001'
+import { host } from './../assets/javascript/util'
+// const host = process.env.NODE_ENV !== 'development' ? 'http://47.98.146.104:4001' : 'http://localhost:4001'
 // const host = 'http://localhost:4001'
 // var host = 'http://47.98.146.104:4001'
 
