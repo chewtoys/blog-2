@@ -1,5 +1,5 @@
 <template>
-  <nav class="menu">
+  <nav class="menu" id="menu">
     <div class="logo">
       <a href="/">fuzhongkuo.com</a>
     </div>
@@ -20,7 +20,7 @@ export default {
           router: '/'
         },
         {
-          text: '文艺范',
+          text: '热门文章',
           id: 'article',
           router: '/article/list'
         },
@@ -33,17 +33,17 @@ export default {
           text: '关于我',
           id: 'about',
           router: '/about'
-        },
-        {
-          text: '后台管理',
-          id: 'admin'
         }
+        // {
+        //   text: '后台管理',
+        //   id: 'admin'
+        // }
       ]
     }
   },
   methods: {
     nav(item) {
-      if (item.id !== 'admin'){
+      if (item.id !== 'admin') {
         this.$router.push(item.router)
       } else {
         // window.location.href = 'http://admin.fuzhongkuo.com'
@@ -58,7 +58,27 @@ export default {
       //     this.$router.push('/login')
       //   }
       // }
+    },
+    handleScroll() {
+      // console.log(document.querySelector('#menu').offsetTop)
+      let scrollTop =
+        window.pageYOffset ||
+        document.documentElement.scrollTop ||
+        document.body.scrollTop // 滚动条偏移量
+      if (scrollTop > 100) {
+        document.querySelector('#menu').style.position = 'fixed'
+      } else {
+        document.querySelector('#menu').style.position = 'static'
+      }
     }
+  },
+  mounted() {
+    if (this.$route.name !== 'index') {
+      window.addEventListener('scroll', this.handleScroll)
+    }
+  },
+  beforeDestroy() {
+    window.removeEventListener('scroll', this.handleScroll)
   }
 }
 </script>
